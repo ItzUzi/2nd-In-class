@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 /**
  * Takes a 2d array as a parameter
  * Checks if 2d array is a magic square
@@ -28,8 +29,6 @@ int test(int magicSquare[3][3]){
         sum = 0;
     }
 
-    sum = 0;
-
     for(int columns = 0; columns < 3; columns ++){
         for(int rows = 0; rows < 3; rows ++){
             sum += magicSquare[columns][rows];
@@ -43,8 +42,17 @@ int test(int magicSquare[3][3]){
     for(int diagonal = 0; diagonal < 3; diagonal++)
         sum += magicSquare[diagonal][diagonal];
     
-    int row = 3;
-    for(int diagonal)
+    if(sum != 15)
+        return false;
+    sum = 0;
+    int row;
+    for(int column = 0; column < 3; column++){
+        row = 2 - column;
+        sum += magicSquare[column][row];
+    }
+
+    if(sum != 15)
+        return false;
 
     return true;
 }
