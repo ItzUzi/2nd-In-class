@@ -1,7 +1,7 @@
 #include <string.h>
 #include "employee.h"
 
-PtrToEmployee searhEmployeeByNumber(PtrToConstEmployee ptr, int tableSize, long targetNumber){
+PtrToEmployee searchEmployeeByNumber(PtrToConstEmployee ptr, int tableSize, long targetNumber){
     const PtrToConstEmployee endPtr = ptr + tableSize;
 
     for(;ptr < endPtr; ptr++){
@@ -11,11 +11,31 @@ PtrToEmployee searhEmployeeByNumber(PtrToConstEmployee ptr, int tableSize, long 
     return NULL;
 }
 
-PtrToEmployee searchEmployeeByName(PtrToConstEmployee ptr, int tableSize, char *targetname){
+PtrToEmployee searchEmployeeByName(PtrToConstEmployee ptr, int tableSize, char *targetName){
     const PtrToConstEmployee endPtr = ptr + tableSize;
     
     for(; ptr < endPtr; ptr++){
         if (strmcmp(ptr->name, targetName) == 0)
+            return (PtrToEmployee) ptr;
+    }
+    return NULL;
+}
+
+PtrToEmployee searchEmployeeByPhoneNumber(PtrToConstEmployee ptr, int tableSize, char *targetNumber){
+    const PtrToConstEmployee endPtr = ptr + tableSize;
+
+    for(; ptr < endPtr; ptr++){
+        if(strmcmp(ptr->phone, targetNumber) == 0)
+            return (PtrToEmployee) ptr;
+    }
+    return NULL;
+}
+
+PtrToEmployee searchEmployeeBySalary(PtrToConstEmployee ptr, int tableSize, double targetSalary){
+    const PtrToConstEmployee endPtr = ptr + tableSize;
+
+    for(; ptr < endPtr; ptr++){
+        if(ptr -> salary == targetSalary)
             return (PtrToEmployee) ptr;
     }
     return NULL;
