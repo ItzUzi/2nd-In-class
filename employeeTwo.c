@@ -1,6 +1,10 @@
 #include <string.h>
 #include "employee.h"
 
+/**
+ * Returns pointer to data being looked for by using other methods for help
+ * Every method uses this function in order to not have duplicate code
+*/
 static PtrToEmployee searchEmployeeTable(PtrToConstEmployee ptr, int tableSize, const void *targetPtr,
                                         int (*functionPtr)(const void *, PtrToConstEmployee))
 {
@@ -12,6 +16,9 @@ static PtrToEmployee searchEmployeeTable(PtrToConstEmployee ptr, int tableSize, 
     return NULL;
 }
 
+/**
+ * returns the pointer to the data that is wanted
+*/
 static int compareEmployeeNumber(const void *targetPtr, PtrToConstEmployee tableValuePtr){
     return * (long *) targetPtr != tableValuePtr -> number;
 }
@@ -27,6 +34,12 @@ static int compareEmploymentPhoneNumber(const void *targetPtr, PtrToConstEmploye
 static int compareEmploymentSalary(const void *targetPtr, PtrToConstEmployee tableValuePtr){
     return * (double *) targetPtr != tableValuePtr -> salary;
 }
+
+/**
+ * Calls the compare funtions to get the pointer to the write data value
+ * Then uses the return from those functions to call the searchEmployeeTable()
+ * returns the pointer to the desired data
+*/
 
 PtrToEmployee searchEmployeeByNumber(PtrToConstEmployee ptr, int size, long number){
     return searchEmployeeTable(ptr, size, &number, compareEmployeeNumber);

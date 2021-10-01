@@ -3,13 +3,20 @@
 #include "employee.h"
 
 void main(void){
+    /**
+     * Tells compiler that methods exist in other C files
+    */
     PtrToEmployee searchEmployeeByPhoneNumber(const Employee table[], int tableSize, char *targetNumber);
     PtrToEmployee searchEmployeeBySalary(const Employee table[], int tableSize, double targetSalary);
 
+    /**
+     * Tells compiler about the employeeTable.c file
+    */
     extern Employee EmployeeTable[];
     extern const int EmployeeTableEntries;
     PtrToEmployee matchPtr;
 
+    // Tests the searchEmployeeByPhoneNumber by calling it
     printf("\nNow testing searchEmployeeByPhoneNumber()...\n");
     char *wrongPhoneNumber = "999-999-9999";
     char *correctPhoneNumber = "123-456-7890";
@@ -22,7 +29,6 @@ void main(void){
     else
         printf("The phone number: %s, was not found in any record.\n", wrongPhoneNumber);
 
-    
     matchPtr = searchEmployeeByPhoneNumber(EmployeeTable, EmployeeTableEntries, correctPhoneNumber);
 
     // matchPtr should not equal null
@@ -36,6 +42,7 @@ void main(void){
     double wrongSalary = 9.5;
     double rightSalary = 10;
 
+    // Tests the searchEmployeeBySalary by calling the function
     matchPtr = searchEmployeeBySalary(EmployeeTable, EmployeeTableEntries, wrongSalary);
 
     // matchPtr should be NULL
