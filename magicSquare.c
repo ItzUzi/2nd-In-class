@@ -23,7 +23,7 @@ int test(int magicSquare[3][3]){
 
     for(int diagonal = 0; diagonal < 3; diagonal++)
         sum += magicSquare[diagonal][diagonal];
-    // initializes the check to make sure all next sums sum up to the check
+    // initializes the check to make sure all next sums sum up to the same value
     check = sum;
     sum = 0;
 
@@ -50,7 +50,10 @@ int test(int magicSquare[3][3]){
 
     return true;
 }
-
+/**
+ * Creates the random array using the array initialized from the rndmNum()
+ * the array should be completely random and have no duplicates
+*/
 void rndmArray(int array[3][3], int temp[9]){
     int count = 0;
 
@@ -59,13 +62,6 @@ void rndmArray(int array[3][3], int temp[9]){
             array[column][row] = temp[count];
             count++; 
         }
-    
-    for(int column = 0; column < 3; column++)
-        for(int row = 0; row < 3; row++)
-            printf("Array at column %d and row %d, is: %d\n", column, row, array[column][row]);
-    
-
-        
 }
 
 /**
@@ -85,7 +81,10 @@ int contains(int array[9], int targetNum){
         
     return result;
 }
-
+/**
+ * creates a random array in and calls contains() to check if numbers are already
+ * array to follow through with rule that it cannot contain any duplicates
+*/
 void rndmNum(int array[3][3]){
     srand(time(NULL));
     int rndm = (rand() % 9) + 1;
@@ -129,20 +128,37 @@ int main(int argc, char const *argv[])
         {3,5,7},
         {8,1,6}
     };
-
+    // Result should equal 0
+    printf("\nNow testing a square that is not a magic square...\n");
+    result = test(wrongSquare);
+    if(result != 1)
+        printf("The square was not a magic square.\n");
+    else
+        printf("The square was a magic square.\n");
+    
+    // Result should equal 1
+    printf("\nNow testing a square that is a magic square...\n");
     result = test(correctSquare);
-    printf("Result: %d\n", result);
-    result = 0;
+    if(result != 1)
+        printf("The square was not a magic square.\n");
+    else
+        printf("The square was a magic square.\n");
 
-    while (result != 1){
+    printf("\nNow attempting to make a magic square using completely random numbers...\n");
+    printf("(May take a while due to low chances of actually making a magic square, CTRL + C to exit)\n");
+    
+    do{
         // Calculates how many failed attempts there were
         // Does not increment if rndm square is a magic square
         count++;
         int rndmSquare[3][3];
         rndmNum(rndmSquare);
         result = test(rndmSquare);
-        printf("Count is: %d\n", count);
-    }
+        // prints out every loop
+        printf("Failed attempts: %d\n", count);
+    }while (result != 1);
+
+    printf("It took %d attempts to create a random square\n", count);
     
 
     return 0;
