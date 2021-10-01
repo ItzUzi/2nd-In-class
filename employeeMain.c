@@ -57,6 +57,4 @@ void main(void){
         printf("The salary: $%.2lf, was found in record %d.\n", rightSalary, matchPtr - EmployeeTable);
     else
         printf("The salary: $%.2lf, was not found in any record.\n", rightSalary);
-
-
 }   
