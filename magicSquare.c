@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 /**
  * Takes a 2d array as a parameter
@@ -52,8 +53,73 @@ int test(int magicSquare[3][3]){
     return true;
 }
 
+void rndmArray(int array[3][3], int temp[9]){
+    int count = 0;
+
+    for(int column = 0; column < 3; column++)
+        for(int row = 0; row < 3; row++){
+            array[column][row] = temp[count];
+            count++; 
+        }
+    
+    for(int column = 0; column < 3; column++)
+        for(int row = 0; row < 3; row++)
+            printf("Array at column %d and row %d, is: %d\n", column, row, array[column][row]);
+    
+
+        
+}
+
+/**
+ * Checks if array contains number since it
+ * should contain no duplicates
+ * @Params: array, targetNum
+ * checks array contents for target num
+ * if targetNum is found return 1 else return 0
+*/
+int contains(int array[9], int targetNum){
+    int result = 0;
+
+    for(int index = 0; index < 10; index++){
+        if (array[index] == targetNum)
+            result = 1;
+    }
+        
+    return result;
+}
+
+void rndmNum(int array[3][3]){
+    srand(time(NULL));
+    int rndm = (rand() % 9) + 1;
+    int count = 0;
+    int check = 45;
+    int temp[9] = {-1,-1,-1,-1,-1,-1,-1,-1,-1};
+    int result;
+    while(count < 9){
+        if(result != 1){
+            temp[count] = rndm;
+            count++;
+        }
+        if (count == 8){
+            for(int i = 0; i < 8; i++)
+                check -= temp[i];
+            temp[8] = check;
+            check++;
+        }
+
+
+    srand(time(NULL));
+    rndm = (rand() % 9) + 1;
+    result = contains(temp, rndm);
+    }
+
+    rndmArray(array, temp);
+}
+
 int main(int argc, char const *argv[])
 {
+    int count = -1;
+    int result = 0;
     int wrongSquare[3][3] = {
         {1,2,3},
         {4,5,6},
@@ -66,7 +132,18 @@ int main(int argc, char const *argv[])
         {8,1,6}
     };
 
-    int result = test(wrongSquare);
+    result = test(correctSquare);
     printf("Result: %d\n", result);
+    result = 0;
+
+    while (result != 1){
+        count++;
+        int rndmSquare[3][3];
+        rndmNum(rndmSquare);
+        result = test(rndmSquare);
+        printf("Count is: %d\n", count);
+    }
+    
+
     return 0;
 }
