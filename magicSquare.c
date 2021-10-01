@@ -35,7 +35,7 @@ int test(int magicSquare[3][3]){
     sum = 0;
     // Adds the sum of all the columns to make sure that the sum is 15
     for(int rows = 0; rows < 3; rows++){
-        for(int columns = 0; columns < 3; columns++)
+        for(int columns = 0; columns < 3; columns++){
             sum += magicSquare[columns][rows];
         if(sum != check)
             return false;
