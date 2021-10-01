@@ -17,6 +17,8 @@ int test(int magicSquare[3][3]){
     int false = 0;
     int true = 1;
     int sum = 0;
+    // Used for rows
+    int sum2 = 0;
     int check;
 
     for(int diagonal = 0; diagonal < 3; diagonal++)
@@ -33,21 +35,17 @@ int test(int magicSquare[3][3]){
     if(sum != check)
         return false;
     sum = 0;
-    // Adds the sum of all the columns to make sure that the sum is 15
+    // Adds the sum of all the columns to make sure sum is equal to check
     for(int rows = 0; rows < 3; rows++){
         for(int columns = 0; columns < 3; columns++){
             sum += magicSquare[columns][rows];
-        if(sum != check)
+            // Adds the sum of all the rows to make sure sum is equal to check
+            sum2 += magicSquare[rows][columns];
+        }
+        if(sum != check || sum != sum2)
             return false;
         sum = 0;
-    }
-
-    for(int columns = 0; columns < 3; columns ++){
-        for(int rows = 0; rows < 3; rows ++)
-            sum += magicSquare[columns][rows];
-        if(sum != check)
-            return false;
-        sum = 0;
+        sum2 = 0;
     }
 
     return true;
@@ -137,6 +135,8 @@ int main(int argc, char const *argv[])
     result = 0;
 
     while (result != 1){
+        // Calculates how many failed attempts there were
+        // Does not increment if rndm square is a magic square
         count++;
         int rndmSquare[3][3];
         rndmNum(rndmSquare);
